@@ -1,3 +1,22 @@
+const articles = document.querySelector('.article-list');
+const loadArticle = (data) => {
+	if (data) {
+		let html = '';
+		data.forEach((doc) => {
+			const article = doc.data();
+			//console.log(article);
+			const li = `<li>
+						<div class="collapsible-header blue lighten-5">${article.title}</div>
+						<div class="collapsible-body white"><span>${article.content}</span></div>
+					</li>`;
+			html += li;
+		});
+		articles.innerHTML = html;
+	} else {
+		articles.innerHTML = `<h5 class="center-align">Please log in to see the content!</h5>`;
+	}
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 	var modals = document.querySelectorAll('.modal');
 	M.Modal.init(modals);
