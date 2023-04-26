@@ -7,10 +7,13 @@ auth.onAuthStateChanged((s) => {
 			.get()
 			.then((snapshot) => {
 				loadArticle(snapshot.docs);
+				getUser(s);
 			});
 	} else {
 		console.log('Logged out!');
+		//getUser(auth.currentUser.uid);
 		loadArticle(null);
+		getUser();
 	}
 });
 
@@ -68,6 +71,23 @@ loginForm.addEventListener('submit', (e) => {
 			loginForm.reset();
 		})
 		.catch((error) => console.log(error.message));
+});
+
+//Save article
+const newArticleForm = document.querySelector('#create-form');
+newArticleForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+	db.collection('articles')
+		.add({
+			title: newArticleForm['article-title'].value,
+			content: newArticleForm['article-content'].value,
+		})
+		.then(() => {
+			const modal = document.querySelector('#modal-create');
+			M.Modal.getInstance(modal).close();
+			newArticleForm.reset();
+		})
+		.catch((err) => console.log(err.message));
 });
 
 //Acconut Details
