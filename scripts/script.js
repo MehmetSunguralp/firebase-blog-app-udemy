@@ -31,13 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
 
+const accDetails = document.querySelector('.account-details');
+
 const getUser = (user) => {
 	if (user) {
+		let html = `<div>Your email address: <b>${user.email}</b></div>`;
+		accDetails.innerHTML = html;
 		loggedInLinks.forEach((item) => (item.style.display = 'block'));
 		loggedOutLinks.forEach((item) => (item.style.display = 'none'));
 	} else {
+		accDetails.innerHTML = null;
 		loggedInLinks.forEach((item) => (item.style.display = 'none'));
 		loggedOutLinks.forEach((item) => (item.style.display = 'block'));
 	}
 };
-

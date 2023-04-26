@@ -2,13 +2,10 @@
 auth.onAuthStateChanged((s) => {
 	if (s) {
 		console.log('Logged in!');
-		const got = db
-			.collection('articles')
-			.get()
-			.then((snapshot) => {
-				loadArticle(snapshot.docs);
-				getUser(s);
-			});
+		const got = db.collection('articles').onSnapshot((snapshot) => {
+			loadArticle(snapshot.docs);
+			getUser(s);
+		});
 	} else {
 		console.log('Logged out!');
 		//getUser(auth.currentUser.uid);
@@ -90,13 +87,3 @@ newArticleForm.addEventListener('submit', (e) => {
 		.catch((err) => console.log(err.message));
 });
 
-//Acconut Details
-/* const account = document.querySelector('#account');
-const accDetails = document.querySelector('.account-details');
-
-account.addEventListener('click', async function () {
-	accDetails.innerHTML =
-		await `<p>Your email address: ${auth.currentUser.email}</p>`;
-});
-console.log(auth);
- */
