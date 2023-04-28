@@ -28,9 +28,17 @@ signUpForm.addEventListener('submit', (e) => {
 		.then((result) => {
 			//console.log(result.user);
 
-			const modal = document.querySelector('#modal-signup');
-			M.Modal.getInstance(modal).close();
-			signUpForm.reset();
+			return db
+				.collection('users')
+				.doc(result.user.uid)
+				.set({
+					bio: signUpForm['signup-info'].value,
+				})
+				.then(() => {
+					const modal = document.querySelector('#modal-signup');
+					M.Modal.getInstance(modal).close();
+					signUpForm.reset();
+				});
 		})
 		.catch((error) => console.log(error.message));
 });
@@ -86,4 +94,3 @@ newArticleForm.addEventListener('submit', (e) => {
 		})
 		.catch((err) => console.log(err.message));
 });
-

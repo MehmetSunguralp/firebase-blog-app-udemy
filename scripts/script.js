@@ -35,8 +35,17 @@ const accDetails = document.querySelector('.account-details');
 
 const getUser = (user) => {
 	if (user) {
-		let html = `<div>Your email address: <b>${user.email}</b></div>`;
-		accDetails.innerHTML = html;
+		db.collection('users')
+			.doc(user.uid)
+			.get()
+			.then((doc) => {
+				let html = `<div><b>Your email address:</b> ${user.email}</div>
+							<div><b>Personal Information:</b> ${doc.data().bio}</div>
+							`;
+				accDetails.innerHTML = html;
+			});
+		//Acc. detail
+		//Show articles
 		loggedInLinks.forEach((item) => (item.style.display = 'block'));
 		loggedOutLinks.forEach((item) => (item.style.display = 'none'));
 	} else {
