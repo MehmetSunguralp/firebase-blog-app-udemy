@@ -40,7 +40,10 @@ signUpForm.addEventListener('submit', (e) => {
 					signUpForm.reset();
 				});
 		})
-		.catch((error) => console.log(error.message));
+		.catch((error) => {
+			alert(error.message);
+			//console.log(error.message);
+		});
 });
 
 //Log out
@@ -54,7 +57,7 @@ logout.addEventListener('click', (e) => {
 		.then(() => {
 			//console.log('Logged out succesfully!');
 		})
-		.catch((error) => console.log(error.message));
+		.catch((error) => alert(error.message));
 });
 
 //Log in
@@ -75,7 +78,7 @@ loginForm.addEventListener('submit', (e) => {
 			M.Modal.getInstance(modal).close();
 			loginForm.reset();
 		})
-		.catch((error) => console.log(error.message));
+		.catch((error) => alert(error.message));
 });
 
 //Save article
